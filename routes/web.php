@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\StudentApplicationController;
+use App\Http\Controllers\Admin\SupervisorController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Frontend\RegistrationController;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,14 @@ Route::prefix('admin')->group(function () {
         Route::resource('permissions', PermissionController::class);
         Route::resource('applications', StudentApplicationController::class);
         Route::resource('groups', GroupController::class);
+        Route::resource('supervisors', SupervisorController::class);
+    });
+});
+
+Route::prefix('group')->group(function () {
+    Route::group(['middleware' => ['auth', 'role:group']], function () {
+        Route::get('/', function () {return view('backend.index');})->name('dashboard');
+        Route::resource('supervisors', SupervisorController::class);
     });
 });
 

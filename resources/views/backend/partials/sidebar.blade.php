@@ -19,6 +19,7 @@
                 </a>
             </li>
             <li class="nav-item nav-category">Manage</li>
+            @if (auth()->user()->hasRole('admin'))                          
             <li class="nav-item">
                 <a href="{{ url('/admin/roles') }}" class="nav-link">
                     <i class="link-icon" data-feather="shield"></i>
@@ -49,6 +50,20 @@
                     <span class="link-title">Groups</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ url('/admin/supervisors') }}" class="nav-link">
+                    <i class="link-icon" data-feather="users"></i>
+                    <span class="link-title">Supervisors</span>
+                </a>
+            </li>
+            @elseif(auth()->user()->hasRole('group'))                          
+            <li class="nav-item">
+                <a href="{{ url('/group/supervisors') }}" class="nav-link">
+                    <i class="link-icon" data-feather="users"></i>
+                    <span class="link-title">Supervisors</span>
+                </a>
+            </li>
+            @endif
         </ul>
     </div>
 </nav>

@@ -17,7 +17,7 @@ class StudentApplicationController extends Controller
      */
     public function index()
     {
-        $applications = Registration::all();
+        $applications = Registration::where('is_registered', 0)->get();
         return view('backend.registrations.index', compact('applications'));
     }
 
@@ -45,7 +45,7 @@ class StudentApplicationController extends Controller
         })->get();
 
         $group_name = 'GC-' . now()->format('Y') . '-G' . $count->count();
-        $group_email = 'GC-' . now()->format('Y') . '-G' . $count->count() . '@gmail.com';
+        $group_email = 'gc-' . now()->format('Y') . '-G' . $count->count() . '@gmail.com';
         $password = bcrypt('12345678');
         $user = User::create(['name' => $group_name, 'password' => $password, 'email' => $group_email]);
         $user->assignRole(3);
