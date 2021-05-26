@@ -63,6 +63,12 @@
                     <span class="link-title">Supervisors</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ url('/group/profile') }}" class="nav-link">
+                    <i class="link-icon" data-feather="users"></i>
+                    <span class="link-title">Profile</span>
+                </a>
+            </li>
             @endif
         </ul>
     </div>

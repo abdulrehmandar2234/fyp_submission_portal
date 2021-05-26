@@ -36,7 +36,6 @@
                                 <th>
                                     Email
                                 </th>             
-                                @if(auth()->user()->hasRole('admin'))         
                                 <th>
                                     Created At
                                 </th>
@@ -45,12 +44,7 @@
                                 </th>
                                 <th>
                                     Actions
-                                </th>
-                                @elseif(auth()->user()->hasRole('group'))
-                                <th>
-                                    Available Slots
-                                </th>
-                                @endif
+                                </th>                          
                             </tr>
                           </thead>
                           <tbody>
@@ -59,7 +53,6 @@
                                 <td>{{ ++$key }}</td>
                                 <td>{{ $supervisor->name }}</td>
                                 <td>{{ $supervisor->email }}</td>                               
-                               @if(auth()->user()->hasRole('admin'))
                                 <td>
                                     {{ \Carbon\Carbon::parse($supervisor->created_at)->diffForhumans() }}
                                 </td>
@@ -78,10 +71,7 @@
                                     <a href="{{ route('supervisors.edit',$supervisor->id) }}" class="btn btn-warning btn-icon-text">
                                         <i class="btn-icon-prepend" data-feather="edit"></i> Edit
                                     </a>
-                                </td>
-                                @elseif(auth()->user()->hasRole('group'))
-                                <td>{{ isset($supervisor->slots) ? 14 - $supervisor->slots : 14 }}</td>                               
-                                @endif
+                                </td>                              
                             </tr>
                         @endforeach
                           </tbody>
