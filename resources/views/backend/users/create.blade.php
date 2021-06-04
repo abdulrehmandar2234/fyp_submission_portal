@@ -44,7 +44,7 @@
 
                                 <div class="form-check form-check-inline">
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="roles[]"
+                                        <input type="checkbox" class="form-check-input" name="roles"
                                                value="{{ $role }}">
                                         {{ $role }}
                                         <i class="input-frame"></i></label>

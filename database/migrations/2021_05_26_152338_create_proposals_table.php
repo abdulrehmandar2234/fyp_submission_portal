@@ -16,9 +16,10 @@ class CreateProposalsTable extends Migration
         Schema::create('proposals', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
+            $table->integer('supervisor_id');
             $table->string('title');
             $table->text('description');
-            $table->boolean('is_accepted')->default(0);          
+            $table->boolean('is_accepted')->default(0);
             $table->timestamps();
         });
     }

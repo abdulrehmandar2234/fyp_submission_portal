@@ -42,7 +42,11 @@
                                 </th>
 
                                 <th>
-                                    Proposel
+                                    Pending Proposals
+                                </th>
+
+                                <th>
+                                    Proposal
                                 </th>
                             </tr>
                         </thead>
@@ -50,11 +54,12 @@
                             @foreach ($supervisors as $key => $supervisor)
                             <tr>
                                 <td>{{ ++$key }}</td>
-                                <td>{{ $supervisor->name }}</td>
-                                <td>{{ $supervisor->email }}</td>
+                                <td>{{ $supervisor->user->name }}</td>
+                                <td>{{ $supervisor->user->email }}</td>
                                 <td>{{ $supervisor->slots }}</td>
+                                <td>{{ $supervisor->pending_proposals }}</td>
                                 <td>
-                                     <a href="{{ route('supervisors.edit',$supervisor->id) }}"
+                                    <a href="{{ route('proposals.edit',$supervisor->id) }}"
                                         class="btn btn-info btn-icon-text">
                                         <i class="btn-icon-prepend" data-feather="edit"></i> Send Proposel
                                     </a>

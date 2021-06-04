@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Supervisor;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
@@ -42,6 +43,9 @@ class UsersTableSeeder extends Seeder
             if (isset($user['role'])) {
                 $role = Role::findByName($user['role']);
                 $u->assignRole($role);
+                if ($user['role'] == 'supervisor') {
+                    Supervisor::create(['user_id' => $u->id]);
+                }
             }
         }
     }

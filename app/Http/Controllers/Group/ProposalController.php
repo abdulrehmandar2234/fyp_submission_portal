@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Group;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Proposal\ProposalRequest;
 use App\Models\Proposal;
-use App\Models\User;
+use App\Models\Supervisor;
 use Illuminate\Http\Request;
 
-class SupervisorController extends Controller
+class ProposalController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +18,7 @@ class SupervisorController extends Controller
     public function index()
     {
         try {
-            $supervisors = User::whereHas('roles', function ($q) {
-                $q->where('id', 2);
-            })->get();
+            $supervisors = Supervisor::with('user')->get();
             return view('group.supervisors.index', compact('supervisors'));
         } catch (\Exception $e) {
             return $e->getMessage();
@@ -49,7 +47,6 @@ class SupervisorController extends Controller
         $proposal = Proposal::create($request->except(['document']) + ['user_id' => auth()->id()]);
         $proposal->addMediaFromRequest('document')->toMediaCollection('proposal');
         return redirect()->route('supervisors.index')->with('success', 'Proposal send successfully');
-
     }
 
     /**
@@ -71,7 +68,7 @@ class SupervisorController extends Controller
      */
     public function edit($id)
     {
-        return view('group.proposal.index');
+        return view('group.proposal.index', compact('id'));
     }
 
     /**
