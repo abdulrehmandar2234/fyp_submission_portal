@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UserRequest;
 use App\Http\Requests\User\UserUpdateRequest;
+use App\Models\Supervisor;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -55,6 +56,9 @@ class UserController extends Controller
             $input['password'] = bcrypt($input['password']);
             $user = User::create($input);
             $user->assignRole($request->input('roles'));
+            if ($request->input('roles') == 'supervisor') {
+                Supervisor::create(['user_id' => $user->id]);
+            }
             return redirect()->route('users.index')->with('success', 'User created successfully');
         } catch (\Exception $e) {
             return $e->getMessage();

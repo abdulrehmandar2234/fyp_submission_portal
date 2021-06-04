@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\StudentApplicationController;
 use App\Http\Controllers\Admin\SupervisorController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Frontend\RegistrationController;
+use App\Http\Controllers\Group\ProfileController;
+use App\Http\Controllers\Group\ProposalController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,7 +40,11 @@ Route::prefix('admin')->group(function () {
 Route::prefix('group')->group(function () {
     Route::group(['middleware' => ['auth', 'role:group']], function () {
         Route::get('/', function () {return view('backend.index');})->name('dashboard');
-        Route::resource('supervisors', SupervisorController::class);
+        Route::get('supervisors', [ProposalController::class, 'index'])->name('supervisors.index');
+        Route::resource('proposals', ProposalController::class);
+        Route::post('update-profile', [ProfileController::class, 'changePassword'])->name('change.password');
+        Route::resource('profile', ProfileController::class);
+
     });
 });
 

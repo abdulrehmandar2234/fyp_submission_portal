@@ -6,7 +6,7 @@
         <nav class="page-breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('users.index') }}">Users</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('supervisors.index') }}">Users</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Create User</li>
             </ol>
         </nav>
@@ -16,8 +16,8 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">Users Form</h6>
-                    <form class="forms-sample" method="POST" action="{{ route('users.store') }}">
+                    <h6 class="card-title">Supervisors Form</h6>
+                    <form class="forms-sample" method="POST" action="{{ route('supervisors.store') }}">
                         @csrf
                         <div class="form-group">
                             <label for="name"> Name</label>
@@ -38,21 +38,9 @@
                             <label for="confirm-password">Confirm Password</label>
                             <input type="password" class="form-control" id="confirm-password" autocomplete="off"
                                    placeholder="Confirm Password" name="confirm-password">
-                        </div>
-                        <div class="form-group">
-                            @foreach($roles as $role)
-
-                                <div class="form-check form-check-inline">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="roles"
-                                               value="{{ $role }}">
-                                        {{ $role }}
-                                        <i class="input-frame"></i></label>
-                                </div>
-                            @endforeach
-                        </div>
+                        </div>                       
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                        <a href="{{ route('users.index') }}" class="btn btn-light">Cancel</a>
+                        <a href="{{ route('supervisors.index') }}" class="btn btn-light">Cancel</a>
                     </form>
                 </div>
             </div>

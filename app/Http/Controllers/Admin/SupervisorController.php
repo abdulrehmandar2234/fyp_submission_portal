@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Supervisor;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -52,6 +53,7 @@ class SupervisorController extends Controller
             $input['password'] = bcrypt($input['password']);
             $user = User::create($input);
             $user->assignRole(2);
+            Supervisor::create(['user_id' => $user->id]);
             return redirect()->route('supervisors.index')->with('success', 'Supervisor created successfully');
         } catch (\Exception $e) {
             return $e->getMessage();
