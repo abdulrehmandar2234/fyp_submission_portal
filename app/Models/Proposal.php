@@ -18,4 +18,9 @@ class Proposal extends Model implements HasMedia
         'is_accepted',
         'supervisor_id',
     ];
+
+     public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

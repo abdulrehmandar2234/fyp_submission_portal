@@ -19,7 +19,7 @@ class CreateProposalsTable extends Migration
             $table->integer('supervisor_id');
             $table->string('title');
             $table->text('description');
-            $table->boolean('is_accepted')->default(0);
+            $table->boolean('is_accepted')->nullable();
             $table->timestamps();
         });
     }

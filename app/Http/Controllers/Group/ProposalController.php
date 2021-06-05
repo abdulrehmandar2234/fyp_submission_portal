@@ -19,7 +19,9 @@ class ProposalController extends Controller
     {
         try {
             $supervisors = Supervisor::with('user')->get();
-            return view('group.supervisors.index', compact('supervisors'));
+            $is_accepted = Proposal::with('user')->where('user_id', auth()->id())->first()->is_accepted;
+
+            return view('group.supervisors.index', compact('supervisors', 'is_accepted'));
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -44,7 +46,8 @@ class ProposalController extends Controller
      */
     public function store(ProposalRequest $request)
     {
-        $proposal = Proposal::create($request->except(['document']) + ['user_id' => auth()->id()]);
+        $proposal = Proposal::create($request->except(['document']) + ['user_id' => auth()->id(), 'is_accepted' => 0]);
+        Supervisor::where('id', $proposal->supervisor_id)->update(['pending_proposals' => 1]);
         $proposal->addMediaFromRequest('document')->toMediaCollection('proposal');
         return redirect()->route('supervisors.index')->with('success', 'Proposal send successfully');
     }
@@ -68,6 +71,7 @@ class ProposalController extends Controller
      */
     public function edit($id)
     {
+        $id = Supervisor::findOrFail($id)->user_id;
         return view('group.proposal.index', compact('id'));
     }
 

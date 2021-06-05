@@ -23,4 +23,9 @@ class Registration extends Model implements HasMedia
         'department_id',
         'is_registered',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

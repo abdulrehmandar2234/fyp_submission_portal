@@ -48,6 +48,9 @@
                                 <th>
                                     Proposal
                                 </th>
+                                  <th>
+                                    Status
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -59,10 +62,23 @@
                                 <td>{{ $supervisor->slots }}</td>
                                 <td>{{ $supervisor->pending_proposals }}</td>
                                 <td>
+                                @if (empty($is_accepted))
                                     <a href="{{ route('proposals.edit',$supervisor->id) }}"
-                                        class="btn btn-info btn-icon-text">
-                                        <i class="btn-icon-prepend" data-feather="edit"></i> Send Proposel
+                                        class="btn btn-info btn-icon-text">Send Proposal
+                                        <i class="btn-icon-prepend" data-feather="edit"></i>
                                     </a>
+                                    @else
+                                    <button class="btn btn-info">Sent</button>
+                                @endif
+                                </td>
+                                <td>
+                                    @if (isset($is_accepted) && $is_accepted == 0)
+                                    <button class="btn btn-info">Pending</button>
+                                    @elseif (isset($is_accepted) && $is_accepted == 1)
+                                    <button class="btn btn-success">Accepted</button>
+                                    @else
+                                    <button class="btn btn-danger">Rejected</button>
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach

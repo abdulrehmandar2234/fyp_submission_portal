@@ -69,6 +69,19 @@
                     <span class="link-title">Profile</span>
                 </a>
             </li>
+              @elseif(auth()->user()->hasRole('supervisor'))                                      
+               <li class="nav-item">
+                <a href="{{ url('/supervisor/student-proposals') }}" class="nav-link">
+                    <i class="link-icon" data-feather="users"></i>
+                    <span class="link-title">Proposals</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url('/supervisor/profile') }}" class="nav-link">
+                    <i class="link-icon" data-feather="users"></i>
+                    <span class="link-title">Profile</span>
+                </a>
+            </li>
             @endif
         </ul>
     </div>

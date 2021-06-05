@@ -8,7 +8,8 @@ use App\Http\Controllers\Admin\SupervisorController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Frontend\RegistrationController;
 use App\Http\Controllers\Group\ProfileController;
-use App\Http\Controllers\Group\ProposalController;
+use App\Http\Controllers\Group\ProposalController as GroupProposalController;
+use App\Http\Controllers\Supervisor\ProposalController as SupervisorProposalController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,11 +41,20 @@ Route::prefix('admin')->group(function () {
 Route::prefix('group')->group(function () {
     Route::group(['middleware' => ['auth', 'role:group']], function () {
         Route::get('/', function () {return view('backend.index');})->name('dashboard');
-        Route::get('supervisors', [ProposalController::class, 'index'])->name('supervisors.index');
-        Route::resource('proposals', ProposalController::class);
+        Route::get('supervisors', [GroupProposalController::class, 'index'])->name('supervisors.index');
+        Route::resource('proposals', GroupProposalController::class);
         Route::post('update-profile', [ProfileController::class, 'changePassword'])->name('change.password');
         Route::resource('profile', ProfileController::class);
 
+    });
+});
+
+Route::prefix('supervisor')->group(function () {
+    Route::group(['middleware' => ['auth', 'role:supervisor']], function () {
+        Route::get('/', function () {return view('backend.index');})->name('dashboard');
+        Route::resource('student-proposals', SupervisorProposalController::class);
+        Route::post('update-profile', [ProfileController::class, 'changePassword'])->name('change.password');
+        Route::resource('profile', ProfileController::class);
     });
 });
 
