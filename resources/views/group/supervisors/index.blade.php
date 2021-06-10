@@ -61,8 +61,9 @@
                                 <td>{{ $supervisor->user->email }}</td>
                                 <td>{{ $supervisor->slots }}</td>
                                 <td>{{ $supervisor->pending_proposals }}</td>
-                                <td>
-                                @if (empty($is_accepted))
+                                <td> 
+                               
+                                @if ($is_accepted == null)
                                     <a href="{{ route('proposals.edit',$supervisor->id) }}"
                                         class="btn btn-info btn-icon-text">Send Proposal
                                         <i class="btn-icon-prepend" data-feather="edit"></i>
@@ -76,7 +77,7 @@
                                     <button class="btn btn-info">Pending</button>
                                     @elseif (isset($is_accepted) && $is_accepted == 1)
                                     <button class="btn btn-success">Accepted</button>
-                                    @else
+                                    @elseif (isset($is_accepted) && $is_accepted == 2)
                                     <button class="btn btn-danger">Rejected</button>
                                     @endif
                                 </td>

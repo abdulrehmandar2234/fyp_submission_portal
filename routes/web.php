@@ -1,16 +1,18 @@
 <?php
 
-use App\Http\Controllers\Admin\GroupController;
-use App\Http\Controllers\Admin\PermissionController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Admin\StudentApplicationController;
-use App\Http\Controllers\Admin\SupervisorController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Frontend\RegistrationController;
+use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Group\ProfileController;
+use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\SupervisorController;
+use App\Http\Controllers\Group\MidTermReportController;
+use App\Http\Controllers\Supervisor\MidTermReportController as SupervisorMidTermReportController;
+use App\Http\Controllers\Frontend\RegistrationController;
+use App\Http\Controllers\Admin\StudentApplicationController;
 use App\Http\Controllers\Group\ProposalController as GroupProposalController;
 use App\Http\Controllers\Supervisor\ProposalController as SupervisorProposalController;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +45,7 @@ Route::prefix('group')->group(function () {
         Route::get('/', function () {return view('backend.index');})->name('dashboard');
         Route::get('supervisors', [GroupProposalController::class, 'index'])->name('supervisors.index');
         Route::resource('proposals', GroupProposalController::class);
+        Route::resource('mid-term-report', MidTermReportController::class);
         Route::post('update-profile', [ProfileController::class, 'changePassword'])->name('change.password');
         Route::resource('profile', ProfileController::class);
 
@@ -53,6 +56,7 @@ Route::prefix('supervisor')->group(function () {
     Route::group(['middleware' => ['auth', 'role:supervisor']], function () {
         Route::get('/', function () {return view('backend.index');})->name('dashboard');
         Route::resource('student-proposals', SupervisorProposalController::class);
+        Route::resource('mid-term-report', SupervisorMidTermReportController::class);
         Route::post('update-profile', [ProfileController::class, 'changePassword'])->name('change.password');
         Route::resource('profile', ProfileController::class);
     });

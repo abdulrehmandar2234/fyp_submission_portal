@@ -63,6 +63,12 @@
                     <span class="link-title">Supervisors</span>
                 </a>
             </li>
+             <li class="nav-item">
+                <a href="{{ url('/group/mid-term-report') }}" class="nav-link">
+                    <i class="link-icon" data-feather="users"></i>
+                    <span class="link-title">Mid Term Report</span>
+                </a>
+            </li>
             <li class="nav-item">
                 <a href="{{ url('/group/profile') }}" class="nav-link">
                     <i class="link-icon" data-feather="users"></i>
@@ -74,6 +80,12 @@
                 <a href="{{ url('/supervisor/student-proposals') }}" class="nav-link">
                     <i class="link-icon" data-feather="users"></i>
                     <span class="link-title">Proposals</span>
+                </a>
+            </li>
+              <li class="nav-item">
+                <a href="{{ url('/supervisor/mid-term-report') }}" class="nav-link">
+                    <i class="link-icon" data-feather="users"></i>
+                    <span class="link-title">Mid Term Report</span>
                 </a>
             </li>
             <li class="nav-item">

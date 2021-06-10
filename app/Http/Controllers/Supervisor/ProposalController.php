@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Supervisor;
 
+use App\Http\Controllers\Controller;
 use App\Models\Proposal;
 use App\Models\Supervisor;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class ProposalController extends Controller
 {
@@ -17,7 +17,7 @@ class ProposalController extends Controller
     public function index()
     {
         try {
-            $proposals = Proposal::with('user')->where('supervisor_id', auth()->id())->get();
+            $proposals = Proposal::with('user')->where(['supervisor_id' => auth()->id()])->where('is_accepted', '!=', 2)->get();
             return view('supervisor.proposal.index', compact('proposals'));
         } catch (\Exception $e) {
             return $e->getMessage();
@@ -67,12 +67,16 @@ class ProposalController extends Controller
     {
         $proposal = Proposal::findOrFail($id);
         if ($proposal->is_accepted == 1) {
+            //reject
             $proposal->update(['is_accepted' => 2]);
-            Supervisor::where('id', $proposal->supervisor_id)->update(['pending_proposals' => 1]);
+            Supervisor::where('user_id', $proposal->supervisor_id)->decrement('pending_proposals', 1);
 
             return back()->with('success', 'Proposal Cancelled Successfully');
         } else {
+            //accept
             $proposal->update(['is_accepted' => 1]);
+            Supervisor::where('user_id', $proposal->supervisor_id)->decrement('slots', 1);
+            Supervisor::where('user_id', $proposal->supervisor_id)->decrement('pending_proposals', 1);
             return back()->with('success', 'Proposal Accepted Successfully');
         }
 

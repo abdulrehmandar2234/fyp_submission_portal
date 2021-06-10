@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Group;
+namespace App\Http\Controllers\Supervisor;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Proposal\ProposalRequest;
-use App\Models\Proposal;
-use App\Models\Supervisor;
+use App\Models\MidTermReport;
 use Illuminate\Http\Request;
 
-class ProposalController extends Controller
+class MidTermReportController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,18 +15,8 @@ class ProposalController extends Controller
      */
     public function index()
     {
-        try {
-            $is_accepted = null;
-            $supervisors = Supervisor::with('user')->get();
-            if (Proposal::count() > 0) {
-                $is_accepted = Proposal::with('user')->where('user_id', auth()->id())->first()->is_accepted;
-            }
-            return view('group.supervisors.index', compact('supervisors', 'is_accepted'));
-
-        } catch (\Exception $e) {
-            return $e->getMessage();
-        }
-
+        $mid_term_reports = MidTermReport::where('supervisor_id', auth()->id())->get();
+        return view('supervisor.mid-term-report.index',compact('mid_term_reports'));
     }
 
     /**
@@ -47,12 +35,9 @@ class ProposalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProposalRequest $request)
+    public function store(Request $request)
     {
-        $proposal = Proposal::create($request->except(['document']) + ['user_id' => auth()->id(), 'is_accepted' => 0]);
-        Supervisor::where('user_id', $proposal->supervisor_id)->increment('pending_proposals', 1);
-        $proposal->addMediaFromRequest('document')->toMediaCollection('proposal');
-        return redirect()->route('supervisors.index')->with('success', 'Proposal send successfully');
+        //
     }
 
     /**
@@ -74,8 +59,7 @@ class ProposalController extends Controller
      */
     public function edit($id)
     {
-        $id = Supervisor::findOrFail($id)->user_id;
-        return view('group.proposal.index', compact('id'));
+        //
     }
 
     /**

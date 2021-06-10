@@ -26,11 +26,7 @@
                                 </th>
                                 <th>
                                     Title
-                                </th>
-                                <th>
-                                    Description
-                                </th>
-
+                                </th>                             
                                 <th>
                                     Documentation
                                 </th>
@@ -45,19 +41,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($proposals as $key => $proposal)
+                            @foreach ($mid_term_reports as $key => $mid_term_report)
                             <tr>
                                 <td>{{ ++$key }}</td>
-                                <td>{{ $proposal->title }}</td>
-                                <td>{{ $proposal->description }}</td>
-                                <td><a class="btn btn-primary" href="{{ $proposal->getFirstMediaUrl('proposal') }}">Download</a></td>
-                                <td>{{ $proposal->user->name }}</td>
+                                <td>{{ $mid_term_report->title }}</td>                            
+                                <td><a class="btn btn-primary" href="{{ $mid_term_report->getFirstMediaUrl('mid_term_report') }}">Download</a></td>
+                                <td>{{ $mid_term_report->user->name }}</td>
                                 <td>
-                                    <a href="{{ route('student-proposals.edit',$proposal->id) }}"
+                                    <a href="{{ route('student-proposals.edit',$mid_term_report->id) }}"
                                         class="btn btn-success btn-icon-text">
                                         <i class="btn-icon-prepend" data-feather="edit"></i> Accept
                                     </a>     
-                                      <a href="{{ route('student-proposals.edit',$proposal->id) }}"
+                                      <a href="{{ route('student-proposals.edit',$mid_term_report->id) }}"
                                         class="btn btn-danger btn-icon-text">
                                         <i class="btn-icon-prepend" data-feather="edit"></i> Reject
                                     </a>                                 
