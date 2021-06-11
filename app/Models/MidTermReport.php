@@ -22,4 +22,9 @@ class MidTermReport extends Model implements HasMedia
     {
         return $this->belongsTo(User::class);
     }
+
+    public function supervisor()
+    {
+        return $this->belongsTo(User::class, 'supervisor_id');
+    }
 }

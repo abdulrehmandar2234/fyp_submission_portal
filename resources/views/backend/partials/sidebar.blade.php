@@ -69,6 +69,12 @@
                     <span class="link-title">Mid Term Report</span>
                 </a>
             </li>
+             <li class="nav-item">
+                <a href="{{ url('/group/report-status') }}" class="nav-link">
+                    <i class="link-icon" data-feather="users"></i>
+                    <span class="link-title">Report Status</span>
+                </a>
+            </li>
             <li class="nav-item">
                 <a href="{{ url('/group/profile') }}" class="nav-link">
                     <i class="link-icon" data-feather="users"></i>

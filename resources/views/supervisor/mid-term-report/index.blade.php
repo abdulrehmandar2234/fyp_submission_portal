@@ -48,11 +48,11 @@
                                 <td><a class="btn btn-primary" href="{{ $mid_term_report->getFirstMediaUrl('mid_term_report') }}">Download</a></td>
                                 <td>{{ $mid_term_report->user->name }}</td>
                                 <td>
-                                    <a href="{{ route('student-proposals.edit',$mid_term_report->id) }}"
+                                    <a href="{{ route('mid-term-report.edit',$mid_term_report->id) }}"
                                         class="btn btn-success btn-icon-text">
                                         <i class="btn-icon-prepend" data-feather="edit"></i> Accept
                                     </a>     
-                                      <a href="{{ route('student-proposals.edit',$mid_term_report->id) }}"
+                                      <a href="{{ route('mid-term-report.edit',$mid_term_report->id) }}"
                                         class="btn btn-danger btn-icon-text">
                                         <i class="btn-icon-prepend" data-feather="edit"></i> Reject
                                     </a>                                 

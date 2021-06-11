@@ -16,7 +16,7 @@ class MidTermReportController extends Controller
     public function index()
     {
         $mid_term_reports = MidTermReport::where('supervisor_id', auth()->id())->get();
-        return view('supervisor.mid-term-report.index',compact('mid_term_reports'));
+        return view('supervisor.mid-term-report.index', compact('mid_term_reports'));
     }
 
     /**
@@ -59,7 +59,17 @@ class MidTermReportController extends Controller
      */
     public function edit($id)
     {
-        //
+        $mid_term_reports = MidTermReport::findOrFail($id);
+        if ($mid_term_reports->is_accepted == 1) {
+            //reject
+            $mid_term_reports->update(['is_accepted' => 2]);
+            return back()->with('success', 'Mid Term Report Rejected Successfully');
+        } else {
+            //accept
+
+            $mid_term_reports->update(['is_accepted' => 1]);
+            return back()->with('success', 'Proposal Accepted Successfully');
+        }
     }
 
     /**

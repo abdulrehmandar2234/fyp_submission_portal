@@ -27,9 +27,11 @@ class MidTermReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function status()
     {
-        //
+        $is_accepted = MidTermReport::where('user_id', auth()->id())->first()->is_accepted;
+        $report = MidTermReport::with('supervisor')->where('user_id', auth()->id())->first();
+        return view('group.mid_term_report.report', compact('report', 'is_accepted'));
     }
 
     /**
