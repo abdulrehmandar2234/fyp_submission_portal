@@ -9,8 +9,10 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Frontend\RegistrationController;
 use App\Http\Controllers\Group\MidTermReportController;
 use App\Http\Controllers\Group\ProfileController;
+use App\Http\Controllers\Group\ProjectController;
 use App\Http\Controllers\Group\ProposalController as GroupProposalController;
 use App\Http\Controllers\Supervisor\MidTermReportController as SupervisorMidTermReportController;
+use App\Http\Controllers\Supervisor\ProjectController as SupervisorProjectController;
 use App\Http\Controllers\Supervisor\ProposalController as SupervisorProposalController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,8 +47,10 @@ Route::prefix('group')->group(function () {
         Route::get('/', function () {return view('backend.index');})->name('dashboard');
         Route::get('supervisors', [GroupProposalController::class, 'index'])->name('supervisors.index');
         Route::get('report-status', [MidTermReportController::class, 'status'])->name('report.status');
+        Route::get('project-status', [ProjectController::class, 'status'])->name('project.status');
         Route::resource('proposals', GroupProposalController::class);
         Route::resource('mid-term-report', MidTermReportController::class);
+        Route::resource('project', ProjectController::class);
         Route::post('update-profile', [ProfileController::class, 'changePassword'])->name('change.password');
         Route::resource('profile', ProfileController::class);
 
@@ -58,6 +62,7 @@ Route::prefix('supervisor')->group(function () {
         Route::get('/', function () {return view('backend.index');})->name('dashboard');
         Route::resource('student-proposals', SupervisorProposalController::class);
         Route::resource('mid-term-report', SupervisorMidTermReportController::class);
+        Route::resource('projects', SupervisorProjectController::class);
         Route::post('update-profile', [ProfileController::class, 'changePassword'])->name('change.password');
         Route::resource('profile', ProfileController::class);
     });

@@ -19,7 +19,6 @@ class MidTermReportController extends Controller
     {
         $id = Proposal::where(['user_id' => auth()->id(), 'is_accepted' => 1])->first()->supervisor_id;
         return view('group.mid_term_report.index', compact('id'));
-
     }
 
     /**
@@ -45,7 +44,6 @@ class MidTermReportController extends Controller
         $proposal = MidTermReport::create($request->except(['document']) + ['user_id' => auth()->id(), 'is_accepted' => 0]);
         $proposal->addMediaFromRequest('document')->toMediaCollection('mid_term_report');
         return redirect()->route('supervisors.index')->with('success', 'Mid Term Report send successfully');
-
     }
 
     /**

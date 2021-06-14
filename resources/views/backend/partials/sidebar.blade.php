@@ -75,6 +75,18 @@
                     <span class="link-title">Report Status</span>
                 </a>
             </li>
+             <li class="nav-item">
+                <a href="{{ url('/group/project') }}" class="nav-link">
+                    <i class="link-icon" data-feather="users"></i>
+                    <span class="link-title">Project</span>
+                </a>
+            </li>
+              <li class="nav-item">
+                <a href="{{ url('/group/project-status') }}" class="nav-link">
+                    <i class="link-icon" data-feather="users"></i>
+                    <span class="link-title">Project Status</span>
+                </a>
+            </li>
             <li class="nav-item">
                 <a href="{{ url('/group/profile') }}" class="nav-link">
                     <i class="link-icon" data-feather="users"></i>
@@ -92,6 +104,12 @@
                 <a href="{{ url('/supervisor/mid-term-report') }}" class="nav-link">
                     <i class="link-icon" data-feather="users"></i>
                     <span class="link-title">Mid Term Report</span>
+                </a>
+            </li>
+               <li class="nav-item">
+                <a href="{{ url('/supervisor/projects') }}" class="nav-link">
+                    <i class="link-icon" data-feather="users"></i>
+                    <span class="link-title">Projects</span>
                 </a>
             </li>
             <li class="nav-item">
