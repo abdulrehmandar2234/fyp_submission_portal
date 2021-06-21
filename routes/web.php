@@ -68,6 +68,6 @@ Route::prefix('supervisor')->group(function () {
     });
 });
 
-Route::resource('registration', RegistrationController::class);
-
 require __DIR__ . '/auth.php';
+
+Route::resource('register', RegistrationController::class);

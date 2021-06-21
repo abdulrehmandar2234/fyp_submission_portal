@@ -17,7 +17,7 @@ class ProposalController extends Controller
     public function index()
     {
         try {
-            $proposals = Proposal::with('user')->where(['supervisor_id' => auth()->id()])->where('is_accepted', '!=', 2)->get();
+            $proposals = Proposal::with('user')->where(['supervisor_id' => auth()->id(), 'is_accepted' => null])->get();
             return view('supervisor.proposal.index', compact('proposals'));
         } catch (\Exception $e) {
             return $e->getMessage();
@@ -66,11 +66,10 @@ class ProposalController extends Controller
     public function edit($id)
     {
         $proposal = Proposal::findOrFail($id);
-        if ($proposal->is_accepted == 1) {
+        if (request()->is_accepted == 2) {
             //reject
             $proposal->update(['is_accepted' => 2]);
             Supervisor::where('user_id', $proposal->supervisor_id)->decrement('pending_proposals', 1);
-
             return back()->with('success', 'Proposal Cancelled Successfully');
         } else {
             //accept

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSupervisorsTable extends Migration
+class CreateVivasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateSupervisorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('supervisors', function (Blueprint $table) {
+        Schema::create('vivas', function (Blueprint $table) {
             $table->id();
+            $table->integer('supervisor_id');
             $table->integer('user_id');
-            $table->integer('slots')->default(14);
-            $table->unsignedInteger('pending_proposals')->default(0);
+            $table->date('viva');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateSupervisorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('supervisors');
+        Schema::dropIfExists('vivas');
     }
 }

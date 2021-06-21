@@ -53,11 +53,11 @@
                                 <td><a class="btn btn-primary" href="{{ $proposal->getFirstMediaUrl('proposal') }}">Download</a></td>
                                 <td>{{ $proposal->user->name }}</td>
                                 <td>
-                                    <a href="{{ route('student-proposals.edit',$proposal->id) }}"
+                                    <a href="{{ route('student-proposals.edit',[$proposal->id , 'is_accepted' => 1]) }}"
                                         class="btn btn-success btn-icon-text">
                                         <i class="btn-icon-prepend" data-feather="edit"></i> Accept
                                     </a>     
-                                      <a href="{{ route('student-proposals.edit',$proposal->id) }}"
+                                      <a href="{{ route('student-proposals.edit',[$proposal->id , 'is_accepted' => 2]) }}"
                                         class="btn btn-danger btn-icon-text">
                                         <i class="btn-icon-prepend" data-feather="edit"></i> Reject
                                     </a>                                 

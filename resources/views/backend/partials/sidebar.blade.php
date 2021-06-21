@@ -40,7 +40,7 @@
             </li>
             <li class="nav-item">
                 <a href="{{ url('/admin/applications') }}" class="nav-link">
-                    <i class="link-icon" data-feather="users"></i>
+                    <i class="link-icon" data-feather="chrome"></i>
                     <span class="link-title">Student Applications</span>
                 </a>
             </li>

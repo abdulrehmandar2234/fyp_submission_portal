@@ -20,7 +20,7 @@ class ProposalController extends Controller
         try {
             $is_accepted = null;
             $supervisors = Supervisor::with('user')->get();
-            if (Proposal::count() > 0) {
+            if (Proposal::with('user')->where('user_id', auth()->id())->exists()) {
                 $is_accepted = Proposal::with('user')->where('user_id', auth()->id())->first()->is_accepted;
             }
             return view('group.supervisors.index', compact('supervisors', 'is_accepted'));
