@@ -17,22 +17,18 @@
         <div class="card">
             <div class="card-body">
                 <h6 class="card-title">Supervisors Form</h6>
-                <form class="forms-sample" method="POST" action="{{ url('group/mid-term-report') }}" enctype="multipart/form-data">
+                <form class="forms-sample" method="POST" action="{{ route('viva.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label for="title"> Project Title</label>
-                        <input type="text" class="form-control" id="title" autocomplete="off" placeholder="Title"
-                            name="title">
+                        <label for="title"> Viva Day</label>
+                        <input type="datetime-local" class="form-control" id="title" autocomplete="off" placeholder="Title"
+                            name="viva">
                     </div>
-                    <input type="hidden" name="supervisor_id" id="supervisor_id" value="{{$id}}">
-                   
-                    <div class="form-group">
-                        <label for="document">Attach File</label>
-                        <input type="file" class="form-control" id="document" autocomplete="off" name="document">
-                    </div>
-
+                    <input type="hidden" name="supervisor_id" id="supervisor_id" value="{{$supervisor_id}}">
+                    <input type="hidden" name="user_id" id="user_id" value="{{$user_id}}">
+                                  
                     <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                    <a href="{{ route('mid-term-report.index') }}" class="btn btn-light">Cancel</a>
+                    <a href="{{ route('viva.index') }}" class="btn btn-light">Cancel</a>
                 </form>
             </div>
         </div>

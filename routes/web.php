@@ -1,20 +1,21 @@
 <?php
 
-use App\Http\Controllers\Admin\GroupController;
-use App\Http\Controllers\Admin\PermissionController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Admin\StudentApplicationController;
-use App\Http\Controllers\Admin\SupervisorController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Frontend\RegistrationController;
-use App\Http\Controllers\Group\MidTermReportController;
+use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Group\ProfileController;
 use App\Http\Controllers\Group\ProjectController;
+use App\Http\Controllers\Supervisor\VivaController;
+use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\SupervisorController;
+use App\Http\Controllers\Group\MidTermReportController;
+use App\Http\Controllers\Frontend\RegistrationController;
+use App\Http\Controllers\Admin\StudentApplicationController;
 use App\Http\Controllers\Group\ProposalController as GroupProposalController;
-use App\Http\Controllers\Supervisor\MidTermReportController as SupervisorMidTermReportController;
 use App\Http\Controllers\Supervisor\ProjectController as SupervisorProjectController;
 use App\Http\Controllers\Supervisor\ProposalController as SupervisorProposalController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Supervisor\MidTermReportController as SupervisorMidTermReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,9 +66,9 @@ Route::prefix('supervisor')->group(function () {
         Route::resource('projects', SupervisorProjectController::class);
         Route::post('update-profile', [ProfileController::class, 'changePassword'])->name('change.password');
         Route::resource('profile', ProfileController::class);
+        Route::resource('viva', VivaController::class);
     });
 });
 
 require __DIR__ . '/auth.php';
-
 Route::resource('register', RegistrationController::class);

@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Group;
+namespace App\Http\Controllers\Supervisor;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MidTermReport\MidTermReportRequest;
-use App\Models\MidTermReport;
-use App\Models\Proposal;
+use App\Models\Project;
+use App\Models\Viva;
 use Illuminate\Http\Request;
 
-class MidTermReportController extends Controller
+class VivaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +16,8 @@ class MidTermReportController extends Controller
      */
     public function index()
     {
-        $id = Proposal::where(['user_id' => auth()->id(), 'is_accepted' => 1])->first()->supervisor_id;
-        return view('group.mid_term_report.index', compact('id'));
+        $students = Project::where(['supervisor_id' => auth()->id(), 'is_accepted' => 1])->get();
+        return view('supervisor.viva.index', compact('students'));
     }
 
     /**
@@ -26,11 +25,9 @@ class MidTermReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function status()
+    public function create()
     {
-        $is_accepted = MidTermReport::where('user_id', auth()->id())->first()->is_accepted;
-        $report = MidTermReport::with('supervisor')->where('user_id', auth()->id())->first();
-        return view('group.mid_term_report.report', compact('report', 'is_accepted'));
+        //
     }
 
     /**
@@ -39,11 +36,10 @@ class MidTermReportController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(MidTermReportRequest $request)
+    public function store(Request $request)
     {
-        $proposal = MidTermReport::create($request->except(['document']) + ['user_id' => auth()->id(), 'is_accepted' => 0]);
-        $proposal->addMediaFromRequest('document')->toMediaCollection('mid_term_report');
-        return redirect('/group/supervisors')->with('success', 'Mid Term Report send successfully');
+        Viva::create($request->all());
+        return redirect('supervisor/viva')->with('success', 'Viva Schedule Successfully');
     }
 
     /**
@@ -65,7 +61,10 @@ class MidTermReportController extends Controller
      */
     public function edit($id)
     {
-        //
+        $project = Project::findOrFail($id);
+        $supervisor_id = $project->supervisor_id;
+        $user_id = $project->user_id;
+        return view('supervisor.viva.create', compact('supervisor_id', 'user_id'));
     }
 
     /**

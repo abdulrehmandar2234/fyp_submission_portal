@@ -54,7 +54,7 @@ class SupervisorController extends Controller
             $user = User::create($input);
             $user->assignRole(2);
             Supervisor::create(['user_id' => $user->id]);
-            return redirect()->route('supervisors.index')->with('success', 'Supervisor created successfully');
+            return redirect('admin/supervisors')->with('success', 'Supervisor created successfully');
         } catch (\Exception $e) {
             return $e->getMessage();
         }

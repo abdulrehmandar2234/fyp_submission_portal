@@ -118,6 +118,12 @@
                     <span class="link-title">Profile</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ url('/supervisor/viva') }}" class="nav-link">
+                    <i class="link-icon" data-feather="users"></i>
+                    <span class="link-title">Viva Detail</span>
+                </a>
+            </li>
             @endif
         </ul>
     </div>
