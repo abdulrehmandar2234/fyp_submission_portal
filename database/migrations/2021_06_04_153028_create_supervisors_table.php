@@ -17,7 +17,7 @@ class CreateSupervisorsTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('slots')->default(14);
-            $table->unsignedInteger('pending_proposals')->default(0);
+            $table->unsignedInteger('pending_proposals')->default(0);            
             $table->timestamps();
         });
     }

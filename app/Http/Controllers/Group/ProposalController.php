@@ -18,12 +18,10 @@ class ProposalController extends Controller
     public function index()
     {
         try {
-            $is_accepted = null;
             $supervisors = Supervisor::with('user')->get();
-            if (Proposal::with('user')->where('user_id', auth()->id())->exists()) {
-                $is_accepted = Proposal::with('user')->where('user_id', auth()->id())->first()->is_accepted;
-            }
-            return view('group.supervisors.index', compact('supervisors', 'is_accepted'));
+
+            $proposals = Proposal::with('user')->where('user_id', auth()->id())->get();
+            return view('group.supervisors.index', compact('supervisors', 'proposals'));
 
         } catch (\Exception $e) {
             return $e->getMessage();

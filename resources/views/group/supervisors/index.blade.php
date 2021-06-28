@@ -48,7 +48,7 @@
                                 <th>
                                     Proposal
                                 </th>
-                                  <th>
+                                <th>
                                     Status
                                 </th>
                             </tr>
@@ -61,25 +61,24 @@
                                 <td>{{ $supervisor->user->email }}</td>
                                 <td>{{ $supervisor->slots }}</td>
                                 <td>{{ $supervisor->pending_proposals }}</td>
-                                <td> 
-                               
-                                @if ($is_accepted == null)
+                                <td>                         
+                                  
                                     <a href="{{ route('proposals.edit',$supervisor->id) }}"
                                         class="btn btn-info btn-icon-text">Send Proposal
                                         <i class="btn-icon-prepend" data-feather="edit"></i>
-                                    </a>
-                                    @else
-                                    <button class="btn btn-info">Sent</button>
-                                @endif
+                                    </a>                                    
+                              
                                 </td>
                                 <td>
-                                    @if (isset($is_accepted) && $is_accepted == 0)
+                                    @foreach ($proposals as $proposal)                                    
+                                    @if ($proposal->supervisor_id == $supervisor->user_id && $proposal->is_accepted == 0)
                                     <button class="btn btn-info">Pending</button>
-                                    @elseif (isset($is_accepted) && $is_accepted == 1)
+                                    @elseif ($proposal->supervisor_id == $supervisor->user_id && $proposal->is_accepted == 1)
                                     <button class="btn btn-success">Accepted</button>
-                                    @elseif (isset($is_accepted) && $is_accepted == 2)
+                                    @elseif ($proposal->supervisor_id == $supervisor->user_id && $proposal->is_accepted == 2)
                                     <button class="btn btn-danger">Rejected</button>
                                     @endif
+                                    @endforeach
                                 </td>
                             </tr>
                             @endforeach

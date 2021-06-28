@@ -17,7 +17,7 @@ class ProposalController extends Controller
     public function index()
     {
         try {
-            $proposals = Proposal::with('user')->where(['supervisor_id' => auth()->id(), 'is_accepted' => null])->get();
+            $proposals = Proposal::with('user')->where(['supervisor_id' => auth()->id(), 'is_accepted' => 0])->get();
             return view('supervisor.proposal.index', compact('proposals'));
         } catch (\Exception $e) {
             return $e->getMessage();
