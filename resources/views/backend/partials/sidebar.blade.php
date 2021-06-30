@@ -1,7 +1,7 @@
 <nav class="sidebar">
     <div class="sidebar-header">
         <a href="{{ url('/') }}" class="sidebar-brand">
-            Price<span>Compare</span>
+            FYP<span>PORTAL</span>
         </a>
         <div class="sidebar-toggler not-active">
             <span></span>
