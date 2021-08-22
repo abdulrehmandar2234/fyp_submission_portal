@@ -56,7 +56,7 @@ Route::prefix('group')->group(function () {
         Route::resource('project', ProjectController::class);
         Route::post('update-profile', [ProfileController::class, 'changePassword'])->name('change.password');
         Route::resource('profile', ProfileController::class);
-
+        Route::resource('viva', \App\Http\Controllers\Group\VivaController::class);
     });
 });
 

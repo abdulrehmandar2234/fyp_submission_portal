@@ -9,9 +9,19 @@ class Viva extends Model
 {
     use HasFactory;
 
-      protected $fillable = [
+    protected $fillable = [
         'user_id',
         'supervisor_id',
         'viva',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function supervisor()
+    {
+        return $this->belongsTo(User::class, 'supervisor_id');
+    }
 }

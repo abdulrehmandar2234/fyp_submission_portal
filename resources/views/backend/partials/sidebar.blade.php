@@ -19,7 +19,7 @@
                 </a>
             </li>
             <li class="nav-item nav-category">Manage</li>
-            @if (auth()->user()->hasRole('admin'))                          
+            @if (auth()->user()->hasRole('admin'))
             <li class="nav-item">
                 <a href="{{ url('/admin/roles') }}" class="nav-link">
                     <i class="link-icon" data-feather="shield"></i>
@@ -56,74 +56,104 @@
                     <span class="link-title">Supervisors</span>
                 </a>
             </li>
-            @elseif(auth()->user()->hasRole('group'))                          
+            @elseif(auth()->user()->hasRole('group'))
             <li class="nav-item">
                 <a href="{{ url('/group/supervisors') }}" class="nav-link">
                     <i class="link-icon" data-feather="users"></i>
                     <span class="link-title">Supervisors</span>
                 </a>
             </li>
-             <li class="nav-item">
+            @if (\App\Models\Proposal::where(['user_id' => auth()->id(), 'is_accepted' => 1])->exists())
+            <li class="nav-item">
                 <a href="{{ url('/group/mid-term-report') }}" class="nav-link">
                     <i class="link-icon" data-feather="users"></i>
                     <span class="link-title">Mid Term Report</span>
                 </a>
             </li>
-             <li class="nav-item">
+            @endif
+            @if (\App\Models\MidTermReport::where(['user_id'=> auth()->id()])->where('is_accepted', '!=',
+            null)->exists())
+            <li class="nav-item">
                 <a href="{{ url('/group/report-status') }}" class="nav-link">
                     <i class="link-icon" data-feather="users"></i>
                     <span class="link-title">Report Status</span>
                 </a>
             </li>
-             <li class="nav-item">
+            @endif
+            @if (\App\Models\MidTermReport::where(['user_id'=> auth()->id()])->where('is_accepted', 1)->exists())
+            <li class="nav-item">
                 <a href="{{ url('/group/project') }}" class="nav-link">
                     <i class="link-icon" data-feather="users"></i>
                     <span class="link-title">Project</span>
                 </a>
             </li>
-              <li class="nav-item">
+            @endif
+            @if (\App\Models\Project::where(['user_id'=> auth()->id()])->where('is_accepted', '!=', null)->exists())
+            <li class="nav-item">
                 <a href="{{ url('/group/project-status') }}" class="nav-link">
                     <i class="link-icon" data-feather="users"></i>
                     <span class="link-title">Project Status</span>
                 </a>
             </li>
+            @endif
+            @if (\App\Models\Viva::where(['user_id'=> auth()->id()])->exists())
+            <li class="nav-item">
+                <a href="{{ url('/group/viva') }}" class="nav-link">
+                    <i class="link-icon" data-feather="users"></i>
+                    <span class="link-title">Viva Detail</span>
+                </a>
+            </li>
+            @endif
+
+
             <li class="nav-item">
                 <a href="{{ url('/group/profile') }}" class="nav-link">
                     <i class="link-icon" data-feather="users"></i>
                     <span class="link-title">Profile</span>
                 </a>
             </li>
-              @elseif(auth()->user()->hasRole('supervisor'))                                      
-               <li class="nav-item">
+
+            @elseif(auth()->user()->hasRole('supervisor'))
+            @if (\App\Models\Proposal::count()>0)
+            <li class="nav-item">
                 <a href="{{ url('/supervisor/student-proposals') }}" class="nav-link">
                     <i class="link-icon" data-feather="users"></i>
                     <span class="link-title">Proposals</span>
                 </a>
             </li>
-              <li class="nav-item">
+            @endif
+            @if (\App\Models\MidTermReport::count()>0)
+            <li class="nav-item">
                 <a href="{{ url('/supervisor/mid-term-report') }}" class="nav-link">
                     <i class="link-icon" data-feather="users"></i>
                     <span class="link-title">Mid Term Report</span>
                 </a>
             </li>
-               <li class="nav-item">
+            @endif
+            @if (\App\Models\Project::count()>0)
+            <li class="nav-item">
                 <a href="{{ url('/supervisor/projects') }}" class="nav-link">
                     <i class="link-icon" data-feather="users"></i>
                     <span class="link-title">Projects</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="{{ url('/supervisor/profile') }}" class="nav-link">
-                    <i class="link-icon" data-feather="users"></i>
-                    <span class="link-title">Profile</span>
-                </a>
-            </li>
+            @endif
+
+            @if (\App\Models\Viva::count()>0)
             <li class="nav-item">
                 <a href="{{ url('/supervisor/viva') }}" class="nav-link">
                     <i class="link-icon" data-feather="users"></i>
                     <span class="link-title">Viva Detail</span>
                 </a>
             </li>
+            @endif
+            <li class="nav-item">
+                <a href="{{ url('/supervisor/profile') }}" class="nav-link">
+                    <i class="link-icon" data-feather="users"></i>
+                    <span class="link-title">Profile</span>
+                </a>
+            </li>
+
             @endif
         </ul>
     </div>
